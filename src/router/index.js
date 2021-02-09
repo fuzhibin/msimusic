@@ -1,31 +1,38 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 //发现音乐
-const FindMusic = ()=>import('views/findmusic/FindMusic.vue')
-const PersonalityRecommend = ()=>import('views/findmusic/components/PersonalityRecommend')
-const SongSheet= ()=>import('views/findmusic/components/SongSheet');
+const FindMusic = () => import('views/findmusic/FindMusic.vue')
+const PersonalityRecommend = () => import('views/findmusic/components/PersonalityRecommend')
+const SongSheet = () => import('views/findmusic/components/SongSheet');
+const Singer = () => import('views/findmusic/components/Singer')
+const NewSong = () => import('views/findmusic/components/NewSong')
 //视频
-const Video = ()=>import('views/video/Video')
+const Video = () => import('views/video/Video')
 const routes = [{
-  path:'',
-  redirect:'/findmusic'
-},{
-  path:'/findmusic',
-  component:FindMusic,
+  path: '',
+  redirect: '/findmusic'
+}, {
+  path: '/findmusic',
+  component: FindMusic,
   redirect: '/findmusic/personalityrecommend',
-  children:[{
+  children: [{
     path: 'personalityrecommend',
-    component:PersonalityRecommend
-  },{
+    component: PersonalityRecommend
+  }, {
     path: 'songSheet',
-    component:SongSheet
+    component: SongSheet
+  }, {
+    path: 'singer',
+    component: Singer
+  },{
+    path: 'newsong',
+    component: NewSong
   }]
-},{
-  path:'/video',
-  component:Video
+}, {
+  path: '/video',
+  component: Video
 }]
 
 const router = createRouter({
-
   history: createWebHistory(),
   routes
 })

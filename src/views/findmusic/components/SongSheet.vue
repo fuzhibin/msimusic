@@ -1,7 +1,7 @@
 <template>
-<h2>
-  歌单
-</h2>
+<div class="songsheet">
+
+</div>
 </template>
 
 <script>
@@ -11,5 +11,9 @@ export default {
 </script>
 
 <style scoped>
-
+.songsheet {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+}
 </style>

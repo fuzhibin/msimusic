@@ -3,7 +3,7 @@
   <ul>
     <li v-for="(item,index) in itemName"
         @click="tabItemClic(index)"
-        :class="{active:currentIndex === index}">{{item}}</li>
+        :class="{active:currentIndex === index}">{{item.title}}</li>
   </ul>
 </div>
 </template>
@@ -13,13 +13,29 @@ export default {
   name: "TabBar",
   data(){
     return{
-      itemName:['发现音乐','视频','朋友','直播','私人FM'],
+      itemName:[{
+        title:'发现音乐',
+        path:'/findmusic'
+      },{
+        title:'视频',
+        path:'/video'
+      }, {
+        title:'朋友',
+        path:'/friend'
+      }, {
+        title:'直播',
+        path: '/livebroadcast'
+      }, {
+        title:'私人FM',
+        path: 'myfm'
+      }],
       currentIndex:0
     }
   },
   methods:{
     tabItemClic(index){
       this.currentIndex = index;
+      this.$router.replace(this.itemName[index].path);
     }
   }
 }
@@ -27,9 +43,9 @@ export default {
 
 <style scoped>
 .tabbar {
-  width: 250px;
+  width: 200px;
   height: 100%;
-  min-width: 200px;
+  min-width:150px;
   border-right: 2px solid #E1E1E1;
 }
 .tabbar ul {
@@ -43,6 +59,7 @@ export default {
   height: 40px;
   line-height: 40px;
   margin-bottom: 4px;
+  cursor: pointer;
 }
 .tabbar li:hover {
   background-color: #F6F6F7;

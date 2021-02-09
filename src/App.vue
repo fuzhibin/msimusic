@@ -7,17 +7,20 @@
         <router-view/>
       </div>
     </div>
+    <ctrol-bar/>
   </div>
 
 </template>
 <script>
 import NavBar from "components/content/navbar/NavBar";
 import TabBar from "components/content/tabbar/TabBar";
+import CtrolBar from "components/content/ctrolbar/CtrolBar";
 export default {
   name:'App',
   components:{
     NavBar,
-    TabBar
+    TabBar,
+    CtrolBar
   }
 
 }
