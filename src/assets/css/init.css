@@ -10,3 +10,14 @@ ul,ol,li {
 i {
   font-style: normal;
 }
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon.eot?8l18eo');
+  src:  url('../fonts/icomoon.eot?8l18eo#iefix') format('embedded-opentype'),
+  url('../fonts/icomoon.ttf?8l18eo') format('truetype'),
+  url('../fonts/icomoon.woff?8l18eo') format('woff'),
+  url('../fonts/icomoon.svg?8l18eo#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}

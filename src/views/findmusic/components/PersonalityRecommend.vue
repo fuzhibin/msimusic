@@ -5,19 +5,22 @@
 
 <script>
 import {getMusicList} from "@/network/findmusic";
-
 export default {
   name: "PersonalityRecommend",
   data() {
     return {
-      list: null
+      carouselList: []
     }
+  },
+  components: {
   },
   created() {
     getMusicList().then(res => {
+      let data = res.data;
+      console.log(data);
+      this.carouselList=data.blocks[0].extInfo.banners;
     })
-  },
-  components: {}
+  }
 }
 </script>
 

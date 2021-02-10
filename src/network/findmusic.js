@@ -15,6 +15,7 @@ export function getSingerInfo(type,area){
     }
   })
 }
+//请求新歌
 export function getNewSongs(type){
   return request({
     url:'/top/song',
