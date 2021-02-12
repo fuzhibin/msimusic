@@ -48,7 +48,7 @@ export default {
     //点击图片播放音乐
     transmitMusic(id) {
       getMusicUrl(id).then(res => {
-        this.$store.commit('updateAudioInfo',new AudioInfo(res.data[0],this.newInfoShow));
+        this.$store.commit('updateAudioInfo',new AudioInfo(res.data[0],this.newInfoShow,'新歌速递'));
       })
     }
   }

@@ -2,9 +2,9 @@
   <div class="ctrolbar">
     <div class="ctrl-left">
       <div style="position: relative">
-        <img :src="nowMusicInfo.imgUrl" alt="">
+        <img :src="nowMusicInfo.imgUrl" alt="" @click="musicDetail">
         <section>
-          <span class="ctrl-title">{{ nowMusicInfo.musicName }}{{ nowMusicInfo.musicFrom }}</span>
+          <span class="ctrl-title">{{ nowMusicInfo.musicName }}{{ nowMusicInfo.musicAlias }}</span>
           <span class="ctrl-songer">{{ nowMusicInfo.musicAutor }}</span>
         </section>
       </div>
@@ -37,17 +37,24 @@
 
 <script>
 import {formatDate} from "@/common/utils";
+import {getIyrics} from "@/network/getlyrics";
+
 
 export default {
   name: "CtrolBar",
   data() {
     return {
       playPromise:null,
-      isActive:false,
       musicCurrentTime:"00:00",
       timer:null,
       progressWeight:0,
-      myaudio:{}
+      myaudio:{},
+
+    }
+  },
+  watch:{
+    musicCurrentTime(newvalue){
+      console.log(newvalue)
     }
   },
   mounted() {
@@ -60,13 +67,24 @@ export default {
     },
     musicAllTime(){
       return formatDate(this.nowMusicInfo.musicAllTime,"mm:ss")
+    },
+    isActive(){
+      return this.nowMusicInfo.musicActive;
     }
   },
   methods: {
+    //点击小图片跳转到音乐详情页面（即歌词页面）
+    musicDetail(){
+      getIyrics(this.nowMusicInfo.musicId).then(res => {
+        this.$store.commit('updataIyrics',res.lrc.lyric);
+        this.$store.commit('updataCurrentTime',this.myaudio.currentTime*1000)
+        this.$router.push('/musicdetail');
+      })
+    },
     musicDisActive(){
       this.playPromise=this.myaudio.play();
       this.$store.commit('updateAudioAction');
-      this.isActive=false;
+      this.$store.commit('updataCurrentTime',this.myaudio.currentTime*1000);
       clearInterval(this.timer);
       if (this.myaudio.paused){
         this.myaudio.play();
@@ -83,14 +101,12 @@ export default {
     },
     musicIsActive() {
       this.playPromise=this.myaudio.play();
-      this.isActive=true;
       this.$store.commit('updateAudioAction');
       //监听当前播放秒数
       this.timer= setInterval(()=>{
         this.musicCurrentTime=formatDate(this.myaudio.currentTime*1000,"mm:ss");
         this.$refs.pgscont.style.width= this.progressWeight*this.myaudio.currentTime*1000/this.nowMusicInfo.musicAllTime +'px'
-        },100);
-
+      },1000);
       if (!this.myaudio.paused){
         this.myaudio.play();
       } else{

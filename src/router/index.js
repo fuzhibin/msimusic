@@ -7,6 +7,10 @@ const Singer = () => import('views/findmusic/components/Singer')
 const NewSong = () => import('views/findmusic/components/NewSong')
 //视频
 const Video = () => import('views/video/Video')
+
+//音乐详情页面
+const MusicDetail = ()=>import('views/musicdetail/MusicDetail')
+
 const routes = [{
   path: '',
   redirect: '/findmusic'
@@ -30,6 +34,10 @@ const routes = [{
 }, {
   path: '/video',
   component: Video
+},{
+  path: '/musicdetail',
+  component: MusicDetail
+
 }]
 
 const router = createRouter({

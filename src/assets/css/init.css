@@ -10,6 +10,11 @@ ul,ol,li {
 i {
   font-style: normal;
 }
+.dot {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 @font-face {
   font-family: 'icomoon';
   src:  url('../fonts/icomoon.eot?8l18eo');

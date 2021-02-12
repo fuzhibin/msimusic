@@ -30,7 +30,6 @@ export default {
     //获取新歌数据
     getNewSongInfo(num) {
       getNewSongs(num).then(res => {
-        console.log(res);
         this.newMusics.push(...res.data)
       })
     },
