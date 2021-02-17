@@ -46,9 +46,10 @@ export default {
 </script>
 
 <style scoped>
+
 .findmusic {
   position: relative;
-  min-width: 1200px;
+  min-width: 1300px;
   height: calc(100vh - 70px - 70px);
   overflow: hidden;
 }
@@ -56,7 +57,7 @@ export default {
 .findmusic-div {
   padding-top: 15px;
   padding-bottom: 10px;
-
+  background-color: #F6F6F7;
 }
 
 .findmusic-div span {

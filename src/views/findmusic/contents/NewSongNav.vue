@@ -30,8 +30,7 @@ export default {
 .new-song-nav {
   font-size: 15px;
   line-height: 20px;
-  margin-top: 10px;
-  margin-left: 10px;
+  margin: 10px;
 }
 .new-song-nav span {
   padding: 0 5px;

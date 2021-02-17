@@ -1,12 +1,17 @@
 <template>
-  <div class="new-song-item">
+  <div class="new-song-item" v-if="newInfoShow">
     <span class="song-num">{{ setRankNum }}</span>
     <div class="front-cover" @click="transmitMusic(newInfoShow.id)">
-      <img v-lazy="newInfoShow.album.picUrl" alt="">
+      <img v-lazy="musicInfo.picUrl" alt="" v-if="isShow">
     </div>
-    <span class="new-song-name">{{ newInfoShow.name }}<span class="new-song-from">{{newInfoShow.alias[0] }}</span></span>
-    <span class="new-song-songer">{{ newInfoShow.artists[0].name }}</span>
-    <span class="new-song-title">{{ newInfoShow.album.name }}{{ newInfoShow.alias[0] }}</span>
+    <span class="new-song-name">
+      {{ musicInfo.name }}
+      <span class="new-song-from">
+        {{ musicInfo.alias }}
+      </span>
+    </span>
+    <span class="new-song-songer">{{ musicInfo.artists }}</span>
+    <span class="new-song-title">{{ musicInfo.name }}{{ musicInfo.alias }}</span>
     <span class="new-song-time">{{ newSongTime }}</span>
   </div>
 </template>
@@ -16,10 +21,10 @@ import {formatDate} from "common/utils";
 
 import {getMusicUrl} from "@/network/musicurl";
 
-import {AudioInfo} from "@/common/datagroup";
+import {AudioInfo, MusicInfo} from "@/common/datagroup";
 
 export default {
-  name: "NewSongItem",
+  name: "NewCuboidItem",
   props: {
     newInfoShow: {
       type: Object,
@@ -29,26 +34,49 @@ export default {
     },
     rankNum: {
       type: Number
+    },
+    isShow: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
     return {
-      musicurl: ''
+      musicurl: '',
+      musicInfo: null
     }
   },
   computed: {
     newSongTime() {
-      return formatDate(this.newInfoShow.duration, "mm:ss");
+      return formatDate(this.musicInfo.duration, "mm:ss");
     },
     setRankNum() {
+      //vue同种一个组件在不同的地方如入对象，
+      // 展示里边的数据在同一个地方，
+      // 但属性名不同时的处理
+      if (this.isShow) {
+        this.musicInfo = new MusicInfo(
+          this.newInfoShow.album.picUrl,
+          this.newInfoShow.name,
+          this.newInfoShow.alias[0],
+          this.newInfoShow.artists[0].name,
+          this.newInfoShow.duration);
+      } else {
+        this.musicInfo = new MusicInfo(
+          this.newInfoShow.al.picUrl,
+          this.newInfoShow.name,
+          this.newInfoShow.alia[0],
+          this.newInfoShow.ar[0].name,
+          this.newInfoShow.dt);
+      }
       return this.rankNum < 10 ? '0' + this.rankNum : this.rankNum;
     }
   },
-  methods:{
+  methods: {
     //点击图片播放音乐
     transmitMusic(id) {
       getMusicUrl(id).then(res => {
-        this.$store.commit('updateAudioInfo',new AudioInfo(res.data[0],this.newInfoShow,'新歌速递'));
+        this.$store.commit('updateAudioInfo', new AudioInfo(res.data[0], this.musicInfo, '新歌速递'));
       })
     }
   }

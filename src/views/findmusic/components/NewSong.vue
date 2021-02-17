@@ -1,10 +1,11 @@
 <template>
   <div class="new-song">
     <new-song-nav @newSongIndex="newSongIndex"/>
-    <new-song-item
+    <new-cuboid-item class="new-song-item"
       v-for="(item,index) in newMusics"
       :rank-num="index+1"
-      :new-info-show="item"></new-song-item>
+      :new-info-show="item"
+      :is-show="true"></new-cuboid-item>
   </div>
 </template>
 
@@ -12,11 +13,11 @@
 
 import NewSongNav from "@/views/findmusic/contents/NewSongNav";
 import {getNewSongs} from "@/network/findmusic";
-import NewSongItem from "@/views/findmusic/contents/NewSongItem";
+import NewCuboidItem from "@/views/findmusic/contents/NewCuboidItem";
 
 export default {
   name: "NewSong",
-  components: {NewSongItem, NewSongNav},
+  components: {NewCuboidItem, NewSongNav},
   data() {
     return {
       songNavArea:0,
@@ -48,5 +49,8 @@ export default {
   width: 100%;
   height: 100%;
   overflow-y: scroll;
+}
+.new-song-item {
+  height: 100px;
 }
 </style>

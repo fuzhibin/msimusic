@@ -6,12 +6,13 @@ export function getMusicList(){
   })
 }
 //歌手（分类检索）,全部歌手
-export function getSingerInfo(type,area){
+export function getSingerInfo(type,area,offset){
   return request({
     url:'/artist/list',
     params:{
       type,
       area,
+      offset
     }
   })
 }
@@ -21,6 +22,32 @@ export function getNewSongs(type){
     url:'/top/song',
     params:{
       type
+    }
+  })
+}
+//获取歌单 ( 网友精选碟 )
+export function getSongList(offset,cat=''){
+  return request({
+    url:'/top/playlist',
+    params:{
+      offset,
+      cat
+    }
+  })
+}
+//歌单上方分类  /playlist/catlist
+export function getPlayCat(){
+  return request({
+    url:'/playlist/catlist',
+
+  })
+}
+//获取歌单详情
+export function getSheetDetail(id){
+  return request({
+    url:'/playlist/detail',
+    params:{
+      id
     }
   })
 }

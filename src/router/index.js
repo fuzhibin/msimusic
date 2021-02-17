@@ -11,6 +11,8 @@ const Video = () => import('views/video/Video')
 //音乐详情页面
 const MusicDetail = ()=>import('views/musicdetail/MusicDetail')
 
+//歌单详情页
+const SongSheetDetail = () => import('views/sheetdetail/SongSheetDetail')
 const routes = [{
   path: '',
   redirect: '/findmusic'
@@ -37,6 +39,10 @@ const routes = [{
 },{
   path: '/musicdetail',
   component: MusicDetail
+
+},{
+  path: '/sheetdetail',
+  component: SongSheetDetail
 
 }]
 
