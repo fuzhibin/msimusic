@@ -1,7 +1,7 @@
 <template>
   <div class="singer" ref="singer">
     <singer-sort @changeFilter="changeFilter"/>
-    <square-list :square-list="singerList"></square-list>
+    <square-list :square-list="singerList" :is-flag="true"></square-list>
     <div class="load-more"><span @click="loadMore">点击加载更多</span></div>
   </div>
 </template>
@@ -33,6 +33,7 @@ export default {
   methods: {
     getSingerInfos(type, area, offset) {
       getSingerInfo(type, area, offset).then(res => {
+        console.log(res.artists);
         this.singerList.push(...res.artists)
       })
     },

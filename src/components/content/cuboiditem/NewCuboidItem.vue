@@ -1,18 +1,20 @@
 <template>
-  <div class="new-song-item" v-if="newInfoShow">
-    <span class="song-num">{{ setRankNum }}</span>
-    <div class="front-cover" @click="transmitMusic(newInfoShow.id)">
-      <img v-lazy="musicInfo.picUrl" alt="" v-if="isShow">
+  <div class="new-cuboid-item" v-if="newInfoShow">
+    <span class="cuboid-num">{{ setRankNum }}</span>
+    <div class="front-cover">
+      <div class="front-icon" v-if="!isShow"><span
+        @click="transmitMusic(newInfoShow.id)">&#xe852;</span><span>&#xe69a;</span></div>
+      <img v-lazy="musicInfo.picUrl" alt="" v-if="isShow" @click="transmitMusic(newInfoShow.id)">
     </div>
-    <span class="new-song-name">
+    <span class="new-cuboid-name" >
       {{ musicInfo.name }}
-      <span class="new-song-from">
+      <span class="new-cuboid-from" >
         {{ musicInfo.alias }}
       </span>
     </span>
-    <span class="new-song-songer">{{ musicInfo.artists }}</span>
-    <span class="new-song-title">{{ musicInfo.name }}{{ musicInfo.alias }}</span>
-    <span class="new-song-time">{{ newSongTime }}</span>
+    <span class="new-cuboid-songer" v-if="songNameShow">{{ musicInfo.artists }}</span>
+    <span class="new-cuboid-title" >{{ musicInfo.alias }}</span>
+    <span class="new-cuboid-time">{{ newSongTime }}</span>
   </div>
 </template>
 
@@ -26,6 +28,10 @@ import {AudioInfo, MusicInfo} from "@/common/datagroup";
 export default {
   name: "NewCuboidItem",
   props: {
+    songNameShow: {
+      type: Boolean,
+      default: true
+    },
     newInfoShow: {
       type: Object,
       default() {
@@ -84,8 +90,19 @@ export default {
 </script>
 
 <style scoped>
+.front-icon {
+  font-family: 'iconfont';
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
 
-.song-num {
+.front-icon span {
+  margin: 0 6px;
+}
+
+.cuboid-num {
   text-align: center;
   width: 5%;
   color: #9B9B9B;
@@ -103,30 +120,30 @@ export default {
   border-radius: 5px;
 }
 
-.new-song-name {
+.new-cuboid-name {
   padding-left: 15px;
   width: 27%;
 }
 
-.new-song-songer {
+.new-cuboid-songer {
   text-align: center;
   width: 20%;
   color: #9B9B9B;
 }
 
-.new-song-title {
+.new-cuboid-title {
   width: 23%;
   color: #9B9B9B;
 }
 
-.new-song-time {
+.new-cuboid-time {
   width: 15%;
   color: #9B9B9B;
   text-align: right;
-  padding-right: 40px;
+  padding-right:30px;
 }
 
-.new-song-item {
+.new-cuboid-item {
   display: flex;
   align-items: center;
   height: 100px;
@@ -135,7 +152,7 @@ export default {
 }
 
 
-.new-song-item:nth-of-type(even) {
+.new-cuboid-item:nth-of-type(even) {
   background-color: #F9F9F9;
 }
 </style>

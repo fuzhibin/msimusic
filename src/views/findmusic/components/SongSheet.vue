@@ -1,7 +1,7 @@
 <template>
   <div class="songsheet">
     <song-sort :cat-list="catlist" @sortId="updateList"></song-sort>
-    <square-list :square-list="playlists"></square-list>
+    <square-list :square-list="playlists" :is-flag="false"></square-list>
     <div class="load-more"><span @click="loadMore">点击加载更多</span></div>
   </div>
 </template>

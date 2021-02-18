@@ -1,7 +1,8 @@
 <template>
 <div class="square-list">
   <square-list-item v-for="item in squareList"
-                    :square-info="item"></square-list-item>
+                    @squareItemClic="squareItemClic"
+                    :square-info="item"/>
 </div>
 </template>
 
@@ -13,10 +14,35 @@ export default {
     squareList:{
       type:Array,
       default(){ return []}
+    },
+    isFlag: {
+      type:Boolean,
+      default:false
     }
   },
   components:{
     SquareListItem
+  },
+  methods: {
+    squareItemClic(id){
+      if (this.isFlag){
+        console.log('跳转歌手详情页,歌手id：'+id)
+        this.$router.push({
+          path:'/songerdetail',
+          query:{
+            songerId:id
+          }
+        })
+      }else {
+        this.$router.push({
+          path:'/sheetdetail',
+          query:{
+            sheetId:id
+          }
+        })
+      }
+
+    }
   }
 
 }

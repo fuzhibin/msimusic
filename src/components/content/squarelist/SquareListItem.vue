@@ -1,6 +1,7 @@
 <template>
   <div class="square-list-item">
-    <img v-lazy="getImgUrl" alt="" :key="squareInfo.id"  @click="lsitItemClic(squareInfo.id)">
+    <img v-lazy="getImgUrl" alt="" :key="squareInfo.id"
+         @click="lsitItemClic(squareInfo.id)">
     <div class="square-name">{{ squareInfo.name }}</div>
   </div>
 </template>
@@ -14,6 +15,10 @@ export default {
       default() {
         return {};
       }
+    },
+    isFlag:{
+      type:Boolean,
+      default:false
     }
   },
   computed: {
@@ -27,12 +32,7 @@ export default {
   },
   methods:{
     lsitItemClic(id){
-      this.$router.push({
-        path:'/sheetdetail',
-        query:{
-          sheetId:id
-        }
-      })
+      this.$emit('squareItemClic',id)
     }
   }
 }

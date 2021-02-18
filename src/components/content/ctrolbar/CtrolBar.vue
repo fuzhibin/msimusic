@@ -16,12 +16,12 @@
                ref="myaudio"
                preload="auto"
                autostart="true"></audio>
-        <span></span>
-        <span></span>
-        <span @click="musicIsActive" v-if="!isActive"></span>
-        <span @click="musicDisActive" v-if="isActive"></span>
-        <span></span>
-        <span></span>
+        <span>&#xe693;</span>
+        <span>&#xe68e;</span>
+        <span @click="musicIsActive" v-if="!isActive">&#xe852;</span>
+        <span @click="musicDisActive" v-if="isActive">&#xe690;</span>
+        <span>&#xe68f;</span>
+        <span>&#xe694;</span>
       </div>
       <div class="ctrl-bd">
         <span>{{musicCurrentTime}}</span>
@@ -160,15 +160,16 @@ export default {
 .ctrl-center .ctrl-hd {
   position: relative;
   text-align: center;
-  margin-top: 12px;
+  margin-top: 8px;
 }
 
 .ctrl-hd span {
   margin: 0 15px;
+  font-size: 27px;
 }
 
 .ctrl-hd span:nth-of-type(3) {
-  font-size: 25px;
+  font-size: 33px;
 }
 
 .ctrl-bd span {
@@ -177,13 +178,13 @@ export default {
 }
 
 .ctrl-center .ctrl-bd {
-  width: 400px;
+  width: 450px;
   text-align: center;
 }
 
 .ctrl-center,
 .ctrl-right {
-  font-family: 'icomoon';
+  font-family: 'iconfont';
   flex: 1;
 }
 

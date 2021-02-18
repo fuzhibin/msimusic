@@ -12,7 +12,7 @@
 
 <script>
 import {getSheetDetail} from "@/network/findmusic";
-import NewCuboidItem from "views/findmusic/contents/NewCuboidItem";
+import NewCuboidItem from "components/content/cuboiditem/NewCuboidItem";
 import DetailHeader from "components/content/detailheader/DetailHeader";
 
 export default {

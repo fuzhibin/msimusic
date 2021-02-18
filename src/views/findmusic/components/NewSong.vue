@@ -13,7 +13,7 @@
 
 import NewSongNav from "@/views/findmusic/contents/NewSongNav";
 import {getNewSongs} from "@/network/findmusic";
-import NewCuboidItem from "@/views/findmusic/contents/NewCuboidItem";
+import NewCuboidItem from "@/components/content/cuboiditem/NewCuboidItem";
 
 export default {
   name: "NewSong",
