@@ -9,12 +9,12 @@
         <detail-titel-info :music-name="musicInfo.musicName"
                            :music-autor="musicInfo.musicAutor"
                            :music-from="musicInfo.musicFrom"/>
-       <music-lysic :music-lysic="lyricParse"
+        <music-lysic :music-lysic="lyricParse"
                      :current-lysic-index="currentLineNum"
                      class="music-lysic"/>
       </div>
     </div>
-
+    <music-comments-list/>
   </div>
 </template>
 
@@ -24,16 +24,19 @@ import DetailTitelInfo from "@/views/musicdetail/components/DetailTitelInfo";
 
 import lyricParser from 'lyric-parser'
 import MusicLysic from "@/views/musicdetail/components/MusicLysic";
+import MusicCommentsList from "@/views/commentsList/MusicCommentsList";
+
 
 export default {
   name: "MusicDetail",
   data() {
     return {
       lyricParseObj: {},
-      currentLineNum:0
+      currentLineNum: 0
     }
   },
   components: {
+    MusicCommentsList,
     MusicLysic,
     DetailTitelInfo,
     RotatePicture
@@ -58,17 +61,17 @@ export default {
   },
   methods: {
     handleLyparse({lineNum}) {
-     if( lineNum > this.currentLineNum && this.musicState ){
-       this.currentLineNum = lineNum;
-     }
+      if (lineNum > this.currentLineNum && this.musicState) {
+        this.currentLineNum = lineNum;
+      }
     }
   },
   watch: {
     musicState(newValue) {
-      if(this.lyricParseObj){
+      if (this.lyricParseObj) {
         this.lyricParseObj.togglePlay();
       }
-      if(newValue){
+      if (newValue) {
         this.lyricParseObj.seek(this.musicInfo.musicCurrentTime);
       }
     }
@@ -80,7 +83,7 @@ export default {
 
 .musicDetail {
   position: relative;
-  min-width: 1200px;
+  width: 100%;
   height: calc(100vh - 70px - 70px);
   overflow-y: scroll;
 }
@@ -90,9 +93,9 @@ export default {
 }
 
 .detail-right {
-  flex: 1;
-  padding: 0 90px 0 40px;
+  margin-left: 50px;
 }
+
 .music-lysic {
 
   width: 400px;

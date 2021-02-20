@@ -1,8 +1,7 @@
 <template>
-  <div class="songsheet">
-    <song-sort :cat-list="catlist" @sortId="updateList"></song-sort>
+  <div class="songsheet" ref="songsheet">
+    <song-sort :cat-list="catlist" v-show="catlist" @sortId="updateList"></song-sort>
     <square-list :square-list="playlists" :is-flag="false"></square-list>
-    <div class="load-more"><span @click="loadMore">点击加载更多</span></div>
   </div>
 </template>
 
@@ -18,8 +17,9 @@ export default {
     return {
       playlists:[],
       offset:0,
-      catlist:[],
-      cat:''
+      catlist:null,
+      cat:'',
+      loadFinsh:true
     }
   },
   components:{
@@ -30,6 +30,19 @@ export default {
     this.getSonglistInfo(this.offset);
     this.getSongPlayTags()
   },
+  mounted() {
+    const mySelfHeight = this.$refs.songsheet;
+    //节流阀操作
+    mySelfHeight.addEventListener("scroll", () => {
+      if(this.loadFinsh){
+        if (mySelfHeight.scrollTop + mySelfHeight.offsetHeight >= mySelfHeight.scrollHeight-10) {
+          this.loadFinsh=false;
+          this.loadMore();
+        }
+      }
+
+    })
+  },
   methods:{
     getSongPlayTags(){
       getPlayCat().then(res => {
@@ -39,6 +52,7 @@ export default {
     getSonglistInfo(offset,cat=''){
       getSongList(offset*50,cat).then(res => {
         this.playlists.push(...res.playlists);
+        this.loadFinsh=true
         console.log(this.playlists);
       })
     },
@@ -59,15 +73,9 @@ export default {
 .songsheet {
   padding: 10px 25px 50px;
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 70px - 70px - 40px);
   overflow-y: scroll;
 }
-.load-more {
-  text-align: center;
-  color: skyblue;
-  font-size: 12px;
-  cursor: pointer;
-  height: 70px;
-}
+
 
 </style>

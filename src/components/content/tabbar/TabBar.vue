@@ -43,9 +43,9 @@ export default {
 
 <style scoped>
 .tabbar {
-  width: 200px;
+  width: 175px;
   height: 100%;
-  min-width:150px;
+  min-width:175px;
   border-right: 2px solid #E1E1E1;
 }
 .tabbar ul {

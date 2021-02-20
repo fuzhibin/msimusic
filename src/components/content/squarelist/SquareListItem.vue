@@ -1,7 +1,7 @@
 <template>
   <div class="square-list-item">
     <img v-lazy="getImgUrl" alt="" :key="squareInfo.id"
-         @click="lsitItemClic(squareInfo.id)">
+         @click="lsitItemClic(squareInfo.id)" >
     <div class="square-name">{{ squareInfo.name }}</div>
   </div>
 </template>

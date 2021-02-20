@@ -55,7 +55,6 @@ export default {
 
 <style scoped>
 .songer-detail {
-  min-width: 1200px;
   height: calc(100vh - 70px - 70px);
   overflow-y: scroll;
   padding: 0 25px;

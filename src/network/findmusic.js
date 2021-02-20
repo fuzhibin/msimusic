@@ -107,3 +107,12 @@ export function getSheetDetail(id) {
     }
   })
 }
+//推荐歌单  /personalized
+export function getPersonalized(limit=10){
+  return request({
+    url:'/personalized',
+    params:{
+      limit
+    }
+  })
+}

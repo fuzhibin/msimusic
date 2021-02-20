@@ -9,3 +9,15 @@ export function getMusicUrl(id){
     }
   })
 }
+//热搜列表(详细)
+export function getSearchHot(){
+  return request({
+    url:'/search/hot/detail'
+  })
+}
+//所有榜单
+export function getAllTopList(){
+  return request({
+    url:'/toplist'
+  })
+}

@@ -26,7 +26,6 @@ export default {
   methods: {
     squareItemClic(id){
       if (this.isFlag){
-        console.log('跳转歌手详情页,歌手id：'+id)
         this.$router.push({
           path:'/songerdetail',
           query:{
@@ -37,10 +36,11 @@ export default {
         this.$router.push({
           path:'/sheetdetail',
           query:{
-            sheetId:id
+            sheetId:id,
           }
         })
       }
+
 
     }
   }

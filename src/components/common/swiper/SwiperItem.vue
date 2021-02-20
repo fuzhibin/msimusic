@@ -12,9 +12,9 @@ export default {
 .swiper-item {
   position: absolute;
   top: 0;
-  width: 300px;
-  height: 150px;
-  transition-duration: 2s;
+  width: 500px;
+  height: 200px;
+  transition-duration: 1.5s;
 }
 .swiper-item a {
   display: inline-block;
@@ -24,5 +24,6 @@ export default {
 .swiper-item img {
   width: 100%;
   height: 100%;
+  border-radius: 10px;
 }
 </style>

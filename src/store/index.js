@@ -3,15 +3,31 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     audioInfo:{},
+    //搜索记录的保存
+    searchRecords:['薛之谦','你走','富士山下','清空','起风了','消愁','爸爸妈妈']
   },
   getters:{
-    // getAlyric(state) {
-    //   return function (index) {
-    //     return state.audioInfo.musicIyrics[index].time;
-    //   }
-
+    //获取searchRecords的长度
+    getRecordsLength(state){
+      return state.searchRecords.length;
+    },
+    //从searchRecords中获取最后搜索的十条记录
+    getLastRecords(state,getters){
+     return function (value=getters.getRecordsLength){
+        return  state.searchRecords.slice(0,value)
+     }
+    }
   },
   mutations: {
+    //删除一条搜索记录
+    deleteOneSearchRecord(state,value){
+      state.searchRecords.splice(value ,1 );
+    },
+    //将一次搜索记录的保存 更新searchRecords的内容
+    addSearchRecords(state,value){
+      state.searchRecords.unshift(value);
+    },
+
     updataCurrentTime(state,value){
       state.audioInfo.musicCurrentTime=value;
     },
@@ -29,8 +45,6 @@ export default createStore({
     updataIyrics(state,value){
       state.audioInfo.musicIyrics=value;
     }
-
-
   },
   actions: {
   },

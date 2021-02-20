@@ -20,10 +20,9 @@
 
 <script>
 import {formatDate} from "common/utils";
+import {myMixin} from "@/common/mixin";
 
-import {getMusicUrl} from "@/network/musicurl";
-
-import {AudioInfo, MusicInfo} from "@/common/datagroup";
+import { MusicInfo} from "@/common/datagroup";
 
 export default {
   name: "NewCuboidItem",
@@ -78,14 +77,7 @@ export default {
       return this.rankNum < 10 ? '0' + this.rankNum : this.rankNum;
     }
   },
-  methods: {
-    //点击图片播放音乐
-    transmitMusic(id) {
-      getMusicUrl(id).then(res => {
-        this.$store.commit('updateAudioInfo', new AudioInfo(res.data[0], this.musicInfo, '新歌速递'));
-      })
-    }
-  }
+  mixins:[myMixin]
 }
 </script>
 
@@ -144,6 +136,7 @@ export default {
 }
 
 .new-cuboid-item {
+  min-width:600px;
   display: flex;
   align-items: center;
   height: 100px;

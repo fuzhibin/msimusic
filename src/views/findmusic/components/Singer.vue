@@ -2,7 +2,6 @@
   <div class="singer" ref="singer">
     <singer-sort @changeFilter="changeFilter"/>
     <square-list :square-list="singerList" :is-flag="true"></square-list>
-    <div class="load-more"><span @click="loadMore">点击加载更多</span></div>
   </div>
 </template>
 
@@ -20,12 +19,26 @@ export default {
       type: -1,
       area: -1,
       page:0,
-      offset: 0
+      offset: 0,
+      loadFinsh:false
     }
   },
   components: {
     SingerSort,
     SquareList
+  },
+  mounted() {
+    const mySelfHeight = this.$refs.singer;
+    //节流阀操作
+    mySelfHeight.addEventListener("scroll", () => {
+      if(this.loadFinsh){
+        if (mySelfHeight.scrollTop + mySelfHeight.offsetHeight >= mySelfHeight.scrollHeight-10) {
+          this.loadFinsh=false;
+          this.loadMore();
+        }
+      }
+
+    })
   },
   created() {
     this.getSingerInfos(this.type, this.area, this.offset);
@@ -33,8 +46,8 @@ export default {
   methods: {
     getSingerInfos(type, area, offset) {
       getSingerInfo(type, area, offset).then(res => {
-        console.log(res.artists);
         this.singerList.push(...res.artists)
+        this.loadFinsh=true
       })
     },
     changeFilter(value) {
@@ -55,18 +68,11 @@ export default {
 </script>
 
 <style scoped>
-.load-more {
-  text-align: center;
-  color: skyblue;
-  font-size: 12px;
-  cursor: pointer;
-  height: 70px;
-}
 
 .singer {
   padding: 10px 25px 0;
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 70px - 70px - 40px);
   overflow-y: scroll;
 }
 </style>

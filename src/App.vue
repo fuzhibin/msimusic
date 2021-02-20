@@ -34,7 +34,7 @@ export default {
   height: 100%;
 }
 .main-right {
-  flex: 1;
+  width: calc(100% - 175px);
 }
 
 

@@ -43,7 +43,8 @@ export default {
   border-radius: 10px;
 }
 .center {
-  width: 450px;
+  width: 350px;
+  min-width: 320px;
 }
 .tags-name {
   color: #373737;
@@ -55,10 +56,13 @@ export default {
   margin: 0 4px;
 }
 .right {
-  width: 300px;
-  height: 300px;
+  width: 310px;
+  min-width: 300px;
+  height: 100%;
+
 }
 .right pre {
   margin-top: 30px;
+  white-space: pre-wrap;
 }
 </style>

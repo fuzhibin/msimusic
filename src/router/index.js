@@ -1,10 +1,12 @@
 import {createRouter, createWebHistory} from 'vue-router'
 //发现音乐
-const FindMusic = () => import('views/findmusic/FindMusic.vue')
+const FindMusic = () => import('views/findmusic/FindMusic')
 const PersonalityRecommend = () => import('views/findmusic/components/PersonalityRecommend')
 const SongSheet = () => import('views/findmusic/components/SongSheet');
 const Singer = () => import('views/findmusic/components/Singer')
 const NewSong = () => import('views/findmusic/components/NewSong')
+//排行榜
+const LeaderBoard = ()=> import('views/findmusic/components/LeaderBoard')
 //视频
 const Video = () => import('views/video/Video')
 
@@ -26,6 +28,9 @@ const routes = [{
   children: [{
     path: 'personalityrecommend',
     component: PersonalityRecommend
+  }, {
+    path: 'leaderboard',
+    component: LeaderBoard
   }, {
     path: 'songSheet',
     component: SongSheet

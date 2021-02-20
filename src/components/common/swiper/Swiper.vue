@@ -5,9 +5,9 @@
          @mouseenter="swiperEnter">
       <div class="container" ref="container">
         <slot></slot>
-        <i class="pre_icon" @click="pre_carousel">&lt;</i>
-        <i class="next_icon" @click="next_carousel">&gt;</i>
       </div>
+      <i class="pre_icon" @click="pre_carousel" ref="icon1">&lt;</i>
+      <i class="next_icon" @click="next_carousel" ref="icon2">&gt;</i>
     </div>
   </div>
 </template>
@@ -30,7 +30,6 @@ export default {
   },
   mounted() {
     this.items.push(...this.$refs.container.querySelectorAll('div'));
-    console.log(this.items);
     this.itemLength = this.items.length;
     for (let i = 0; i < this.itemLength; i++) {
       this.items[i].style.zIndex = i;
@@ -38,28 +37,36 @@ export default {
     }
     this.items[this.itemLength - 1].className = 'swiper-item right';
     this.items[this.itemLength - 2].className = 'swiper-item center';
-    this.items[this.itemLength - 2].style.zIndex = this.itemLength + 1;
+    this.items[this.itemLength - 2].style.zIndex = this.itemLength ;
     this.items[this.itemLength - 3].className = 'swiper-item left';
-    this.timer=setInterval(this.next_carousel, this.swiperDelay);
+    this.timer=setInterval(()=>{
+      this.next_carousel()
+    }, this.swiperDelay);
   },
   methods: {
     swiperLeave(){
-      clearInterval(this.timer);
+      this.$refs.icon1.style.display='none'
+      this.$refs.icon2.style.display='none'
+      this.timer= setInterval(()=>{
+        this.next_carousel()
+      }, this.swiperDelay);
     },
     swiperEnter(){
-      setInterval(this.next_carousel, this.swiperDelay);
+      clearInterval(this.timer);
+      this.$refs.icon1.style.display='block'
+      this.$refs.icon2.style.display='block'
     },
     pre_carousel(){
       const last_item = this.items.shift();
       this.items.push(last_item);
       for (let i = 0; i < this.itemLength; i++) {
-        this.items[i].style.zIndex = i;
+        this.items[i].style.zIndex =i;
         this.items[i].className = 'swiper-item other'
       }
-      this.items[0].className = 'swiper-item right';
-      this.items[1].className = 'swiper-item center';
-      this.items[1].style.zIndex = this.itemLength + 1;
-      this.items[2].className = 'swiper-item left';
+      this.items[this.itemLength - 1].className = 'swiper-item right';
+      this.items[this.itemLength - 2].className = 'swiper-item center';
+      this.items[this.itemLength - 2].style.zIndex = this.itemLength;
+      this.items[this.itemLength - 3].className = 'swiper-item left';
     },
     next_carousel() {
       const last_item = this.items.pop();
@@ -70,7 +77,7 @@ export default {
       }
       this.items[this.itemLength - 1].className = 'swiper-item right';
       this.items[this.itemLength - 2].className = 'swiper-item center';
-      this.items[this.itemLength - 2].style.zIndex = this.itemLength + 1;
+      this.items[this.itemLength - 2].style.zIndex = this.itemLength;
       this.items[this.itemLength - 3].className = 'swiper-item left';
     }
   }
@@ -80,34 +87,38 @@ export default {
 <style>
 .swiper {
   height: 200px;
-  text-align: center;
 }
 .container {
-  position: relative;
-  width: 300px;
-  height: 150px;
+  position: absolute;
+  width: 500px;
+  height: 200px;
   margin:auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
 .box-contain {
-  display: inline;
+  position: relative;
+  width: 100%;
+  height: 100%;
   cursor: pointer;
 }
 .container .left {
-  left: -150px;
+  left: -200px;
 }
 .container .center {
   transform: scale(1.3);
   left: 0px;
 }
 .container .right {
-  left: 150px;
+  left: 200px;
 }
 .container .other {
   left: 0px;
 }
 .pre_icon,
 .next_icon{
-  display: inline-block;
+  display: none;
   width: 30px;
   height: 30px;
   text-align: center;
@@ -115,6 +126,7 @@ export default {
   font-size: 20px;
   font-style: normal;
   position: absolute;
+  z-index: 14;
   top: 50%;
   cursor: pointer;
   transform: translateY(-50%);
@@ -122,10 +134,10 @@ export default {
   color: #fff;
 }
 .pre_icon {
-  left: -200px;
+  left: 100px;
 }
 .next_icon{
-  right: -200px;
+  right: 100px;
 }
 
 </style>

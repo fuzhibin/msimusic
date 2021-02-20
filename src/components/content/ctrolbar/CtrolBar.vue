@@ -38,8 +38,16 @@
 <script>
 import {formatDate} from "@/common/utils";
 import {getIyrics} from "@/network/getlyrics";
+/***
+ * 下面以后要删除 ---------------- 模拟刚打开页面播放控制栏有音乐
+ */
+import {getOneSong} from "@/tentative";
+import {AudioInfo, MusicInfo} from "@/common/datagroup";
+import {getMusicUrl} from "@/network/musicurl";
 
-
+/***
+ * 上间以后要删除 ----------------- 模拟刚打开页面播放控制栏有音乐
+ */
 export default {
   name: "CtrolBar",
   data() {
@@ -52,11 +60,27 @@ export default {
 
     }
   },
-  watch:{
-    musicCurrentTime(newvalue){
-      console.log(newvalue)
-    }
+  /***
+   * 下面以后要删除 ---------------- 模拟刚打开页面播放控制栏有音乐
+   */
+  created() {
+    getOneSong().then(res => {
+      console.log(res.hotSongs[0]);
+      const  newInfoShow=res.hotSongs[0]
+      const musicInfo = new MusicInfo(
+        newInfoShow.al.picUrl,
+        newInfoShow.name,
+        newInfoShow.alia[0],
+        newInfoShow.ar[0].name,
+        newInfoShow.dt);
+        getMusicUrl(newInfoShow.id).then(res => {
+        this.$store.commit('updateAudioInfo', new AudioInfo(res.data[0], musicInfo, '新歌速递'));
+      })
+    })
   },
+  /***
+   * 上面以后要删除 ----------------------- 模拟刚打开页面播放控制栏有音乐
+   */
   mounted() {
     this.progressWeight=this.$refs.pgsbar.offsetWidth;
     this.myaudio=this.$refs.myaudio;

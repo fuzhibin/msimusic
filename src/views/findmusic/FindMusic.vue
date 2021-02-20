@@ -6,6 +6,7 @@
           :class="{active: currentIndex===index}">{{ item.title }}</span>
     </div>
     <router-view class="findmusic-view"/>
+    <div>{{ ishack }}</div>
   </div>
 </template>
 
@@ -21,10 +22,7 @@ export default {
         path: '/findmusic/songSheet',
         title: '歌单'
       }, {
-        path: '',
-        title: '主播电台'
-      }, {
-        path: '',
+        path: '/findmusic/leaderboard',
         title: '排行榜'
       }, {
         path: '/findmusic/singer',
@@ -39,7 +37,15 @@ export default {
   methods: {
     findmusicItemClic(index) {
       this.currentIndex = index
-      this.$router.replace(this.findItemName[index].path)
+      this.$router.push(this.findItemName[index].path);
+    }
+  },
+  computed: {
+    ishack() {
+      let path = this.$route.path
+      this.currentIndex = this.findItemName.findIndex((item, index) => {
+        return item.path.includes(path)
+      })
     }
   }
 }
@@ -49,20 +55,21 @@ export default {
 
 .findmusic {
   position: relative;
-  min-width: 1300px;
+  width: 100%;
   height: calc(100vh - 70px - 70px);
   overflow: hidden;
 }
 
 .findmusic-div {
-  padding-top: 15px;
-  padding-bottom: 10px;
+  min-width: 450px;
+  line-height: 40px;
   background-color: #F6F6F7;
 }
 
 .findmusic-div span {
+  display: inline-block;
   font-size: 15px;
-  padding-bottom: 3px;
+  height: 43px;
   margin-left: 30px;
   transition-duration: 0.1s;
 }

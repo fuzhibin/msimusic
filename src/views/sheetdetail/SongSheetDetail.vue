@@ -19,6 +19,7 @@ export default {
   name: "SongSheetDetail",
   data() {
     return {
+      leaderBoards:this.$route.query.objInfo,
       songList: null,
       detailHeader:{}
     }
@@ -28,14 +29,26 @@ export default {
     DetailHeader
   },
   created() {
-    getSheetDetail(this.$route.query.sheetId).then(res => {
-      console.log(res.playlist);
-      this.songList = res.playlist.tracks;
-      this.detailHeader.coverImgUrl=res.playlist.coverImgUrl;
-      this.detailHeader.description=res.playlist.description;
-      this.detailHeader.name=res.playlist.name;
-      this.detailHeader.tags=res.playlist.tags;
-    })
+    const sheetId=this.$route.query.sheetId;
+    if(sheetId !==undefined ){
+      getSheetDetail(this.$route.query.sheetId).then(res => {
+        this.songList = res.playlist.tracks;
+        this.detailHeader.coverImgUrl=res.playlist.coverImgUrl;
+        this.detailHeader.description=res.playlist.description;
+        this.detailHeader.name=res.playlist.name;
+        this.detailHeader.tags=res.playlist.tags;
+      })
+    }else {
+       const sheetInfo=JSON.parse(decodeURIComponent(this.$route.query.sheetInfo))
+       this.songList=sheetInfo.tracks;
+      this.detailHeader.coverImgUrl=sheetInfo.coverImgUrl;
+      this.detailHeader.description=sheetInfo.description;
+      this.detailHeader.name=sheetInfo.name;
+      this.detailHeader.tags=sheetInfo.tags;
+    }
+
+
+
   }
 }
 </script>
@@ -43,7 +56,6 @@ export default {
 <style scoped>
 .song-sheet-detail {
   position: relative;
-  min-width: 1200px;
   height: calc(100vh - 70px - 70px);
   overflow-y: scroll;
   padding: 0 25px;

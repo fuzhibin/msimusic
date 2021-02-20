@@ -65,10 +65,11 @@ export default {
 <style scoped>
 .detail-header {
   display: flex;
-  padding: 20px 50px 20px 0;
+  padding: 20px 30px 20px 0;
 }
 .songer-right {
   flex: 1;
+  min-width: 500px;
   margin-left: 50px;
   position: relative;
 }
@@ -79,7 +80,7 @@ export default {
   position: absolute;
   top: 50%;
   left: 50%;transform: translate(-50%,-50%);
-  width: 75%;
+  width: 500px;
   text-indent: 2em;
   white-space: pre-wrap;
 }

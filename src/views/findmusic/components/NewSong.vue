@@ -47,7 +47,7 @@ export default {
 .new-song {
   padding: 10px 25px 50px;
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 70px - 70px - 40px);
   overflow-y: scroll;
 }
 .new-song-item {
