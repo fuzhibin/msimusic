@@ -9,7 +9,11 @@ const NewSong = () => import('views/findmusic/components/NewSong')
 const LeaderBoard = ()=> import('views/findmusic/components/LeaderBoard')
 //视频
 const Video = () => import('views/video/Video')
+const ShortFilm = () => import('views/video/components/ShortFilm')
+const MV = () => import('views/video/components/MV')
 
+//视频详情
+const VideoDetail = ()=> import('views/videodetail/VideoDetail.vue')
 //音乐详情页面
 const MusicDetail = ()=>import('views/musicdetail/MusicDetail')
 
@@ -43,7 +47,16 @@ const routes = [{
   }]
 }, {
   path: '/video',
-  component: Video
+  component: Video,
+  redirect: '/video/short',
+  children: [
+    {
+      path: 'short',
+      component: ShortFilm
+    },{
+      path: 'mv',
+      component: MV
+  }]
 },{
   path: '/musicdetail',
   component: MusicDetail
@@ -51,11 +64,12 @@ const routes = [{
 },{
   path: '/sheetdetail',
   component: SongSheetDetail
-
 },{
   path: '/songerdetail',
   component: SongerDetail
-
+},{
+  path: '/videodetail',
+  component: VideoDetail
 }]
 
 const router = createRouter({

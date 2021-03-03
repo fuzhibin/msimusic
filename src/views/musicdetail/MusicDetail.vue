@@ -14,7 +14,10 @@
                      class="music-lysic"/>
       </div>
     </div>
-    <music-comments-list/>
+    <comments-list
+      :hot-comments="hotComments"
+      :comments="comments"
+      @uploadMore="uploadMore"/>
   </div>
 </template>
 
@@ -24,22 +27,32 @@ import DetailTitelInfo from "@/views/musicdetail/components/DetailTitelInfo";
 
 import lyricParser from 'lyric-parser'
 import MusicLysic from "@/views/musicdetail/components/MusicLysic";
-import MusicCommentsList from "@/views/commentsList/MusicCommentsList";
+import CommentsList from "@/views/commentsList/CommentsList";
 
+//请求评论
+import {getMusicComments} from "@/network/getComments";
 
 export default {
   name: "MusicDetail",
   data() {
     return {
+      hotComments: [],
+      comments: [],
+      musicId: 0,
+      offset: 0,
       lyricParseObj: {},
       currentLineNum: 0
     }
   },
   components: {
-    MusicCommentsList,
+    CommentsList,
     MusicLysic,
     DetailTitelInfo,
     RotatePicture
+  },
+  created() {
+    this.musicId = this.$store.state.audioInfo.musicId;
+    this.getCommentsMore(this.musicId);
   },
   computed: {
     musicState() {
@@ -60,10 +73,22 @@ export default {
     this.lyricParseObj.seek(this.musicInfo.musicCurrentTime)
   },
   methods: {
+    uploadMore(){
+      this.getCommentsMore(this.musicId, this.offset * 20);
+    },
     handleLyparse({lineNum}) {
       if (lineNum > this.currentLineNum && this.musicState) {
         this.currentLineNum = lineNum;
       }
+    },
+    getCommentsMore(id, offset = 0) {
+      getMusicComments(id, offset).then(res => {
+        if (this.hotComments.length === 0) {
+          this.hotComments = res.hotComments;
+        }
+        this.offset++;
+        this.comments.push(...res.comments);
+      })
     }
   },
   watch: {

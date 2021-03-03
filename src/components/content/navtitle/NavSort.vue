@@ -1,13 +1,16 @@
 <template>
-  <div class="song-sort">
+  <div class="nav-sort">
     <div class="highquality"><span ref="title1" @click="titleClic">{{title}}</span>
+    <div class="small-title">
+      <span v-for="(item,index) in smallList" @click="sortClick(item.name,index)" :class="{active:index===currentIndex}">{{item.name}}</span>
     </div>
-    <div class="song-sort-box" v-show="isShow">
+    </div>
+    <div class="nav-sort-box" v-show="isShow">
       <div class="box-hd">
         <span>{{title}}</span>
       </div>
       <div class="box-bd">
-        <span v-for="item in catList" @click="sortClick(item.name)" >{{ item.name }}</span>
+        <span v-for="(item,index) in catList" @click="sortClick(item.name,index)">{{ item.name }}</span>
       </div>
     </div>
   </div>
@@ -15,8 +18,12 @@
 
 <script>
 export default {
-  name: "SongSort",
+  name: "NavSort",
   props: {
+    titleNav:{
+      type:String,
+      default:'全部音乐'
+    },
     catList: {
       type: Array,
       default() {
@@ -24,32 +31,56 @@ export default {
       }
     }
   },
+  computed:{
+    smallList(){
+      return this.catList&& this.catList.slice(0,10);
+    }
+  },
   data() {
     return {
       isShow:false,
-      title:'全部音乐'
+      title:this.titleNav,
+      currentIndex:11
     }
   },
   methods: {
     titleClic(){
       this.isShow=!this.isShow;
     },
-    sortClick(name) {
+    sortClick(name,index) {
       this.title = name;
+      this.currentIndex=index;
       this.$emit('sortId', name);
-      setTimeout(this.titleClic,500)
+      if(this.isShow){
+        setTimeout(this.titleClic,500)
+      }
     },
-
   }
 }
 </script>
 
 <style scoped>
-.song-sort {
+.small-title {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  font-size: 10px;
+}
+.small-title span {
+  margin-left: 5px;
+  padding: 3px;
+  border-radius: 5px;
+}
+.small-title .active {
+  background-color: pink;
+}
+.nav-sort {
   position: relative;
 }
 
 .highquality {
+  position: relative;
   font-size: 13px;
   font-weight: 700;
   line-height: 26px;
@@ -57,19 +88,16 @@ export default {
   cursor: pointer;
 }
 
-.highquality span {
+.highquality>span {
   display: inline-block;
   padding: 5px 10px;
   border-radius: 15px;
   background-color: #F9E7D9;
   border: 2px solid #9B9B9B;
-}
-
-.highquality span {
   margin-left: 10px;
 }
 
-.song-sort-box {
+.nav-sort-box {
   position: absolute;
   top: 40px;
   margin-top: 10px;

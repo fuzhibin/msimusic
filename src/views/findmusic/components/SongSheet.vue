@@ -1,6 +1,6 @@
 <template>
   <div class="songsheet" ref="songsheet">
-    <song-sort :cat-list="catlist" v-show="catlist" @sortId="updateList"></song-sort>
+    <nav-sort :cat-list="catlist" v-show="catlist" @sortId="updateList"></nav-sort>
     <square-list :square-list="playlists" :is-flag="false"></square-list>
   </div>
 </template>
@@ -8,7 +8,8 @@
 <script>
 import SquareList from "components/content/squarelist/SquareList";
 import {getSongList,getPlayCat} from "@/network/findmusic";
-import SongSort from "views/findmusic/contents/SongSort";
+
+import NavSort from "components/content/navtitle/NavSort";
 
 
 export default {
@@ -23,8 +24,8 @@ export default {
     }
   },
   components:{
-    SongSort,
-    SquareList
+    SquareList,
+    NavSort
   },
   created() {
     this.getSonglistInfo(this.offset);

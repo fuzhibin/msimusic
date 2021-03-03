@@ -2,7 +2,7 @@
   <div class="find-recommend">
     <recommend-swiper :carousel-list="carouselList"/>
     <div class="recommend-list">
-      <h2 @click="recommendMoreSheet">推荐歌单   ></h2>
+      <h2 @click="recommendMoreSheet">推荐歌单   &gt;</h2>
       <square-list :is-flag="false" :square-list="recommendSheet"/>
     </div>
   </div>

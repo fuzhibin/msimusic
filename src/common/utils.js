@@ -22,3 +22,7 @@ export function formatDate(date, fmt) {
 function padLeftZero(str) {
   return ('00' + str).substr(str.length);
 };
+//计算万为单位
+export function formatCount(palyCount){
+  return (palyCount / 10000).toFixed(2)+'万';
+}
