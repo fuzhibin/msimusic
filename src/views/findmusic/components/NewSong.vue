@@ -5,6 +5,7 @@
       v-for="(item,index) in newMusics"
       :rank-num="index+1"
       :new-info-show="item"
+      :is-flag="true"
       :is-show="true"></new-cuboid-item>
   </div>
 </template>
@@ -32,6 +33,7 @@ export default {
     getNewSongInfo(num) {
       getNewSongs(num).then(res => {
         this.newMusics.push(...res.data)
+        console.log(this.newMusics);
       })
     },
     newSongIndex(index) {

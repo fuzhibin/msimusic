@@ -4,7 +4,9 @@ export default createStore({
   state: {
     audioInfo:{},
     //搜索记录的保存
-    searchRecords:['薛之谦','你走','富士山下','清空','起风了','消愁','爸爸妈妈']
+    searchRecords:['薛之谦','你走','富士山下','清空','起风了','消愁','爸爸妈妈'],
+    //controlBar显示的标记状态
+    ctlBarShow:true
   },
   getters:{
     //获取searchRecords的长度
@@ -19,6 +21,10 @@ export default createStore({
     }
   },
   mutations: {
+    changeCtlBarShow(state){
+      state.ctlBarShow=!state.ctlBarShow;
+
+    },
     //删除一条搜索记录
     deleteOneSearchRecord(state,value){
       state.searchRecords.splice(value ,1 );

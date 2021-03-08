@@ -17,9 +17,6 @@ export default {
   data() {
     return {
       videoList: [{
-        path: '/video/short',
-        title: '视频'
-      }, {
         path: '/video/mv',
         title: 'MV'
       }],

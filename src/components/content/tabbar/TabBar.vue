@@ -17,18 +17,19 @@ export default {
         title:'发现音乐',
         path:'/findmusic'
       },{
-        title:'视频',
+        title:'MV',
         path:'/video'
-      }, {
-        title:'朋友',
-        path:'/friend'
-      }, {
-        title:'直播',
-        path: '/livebroadcast'
-      }, {
-        title:'私人FM',
-        path: 'myfm'
       }],
+    //   , {
+    //   title:'朋友',
+    //   path:'/friend'
+    // }, {
+    //   title:'直播',
+    //   path: '/livebroadcast'
+    // }, {
+    //   title:'私人FM',
+    //   path: 'myfm'
+    // }
       currentIndex:0
     }
   },

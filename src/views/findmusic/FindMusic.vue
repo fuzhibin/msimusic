@@ -37,7 +37,7 @@ export default {
   methods: {
     findmusicItemClic(index) {
       this.currentIndex = index
-      this.$router.push(this.findItemName[index].path);
+      this.$router.replace(this.findItemName[index].path);
     }
   },
   computed: {

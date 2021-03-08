@@ -13,7 +13,7 @@
                @keyup.enter="searchClic"
                @focus="listShow"
                @blur="listHide">
-        <span @click="searchClic"></span>
+        <span @click="searchClic">搜索</span>
       </i>
       <div class="search-list" v-show="isShow" @mouseover="isShow2=false" @mouseout="listMouseLeave">
         <div class="search-list-contain" >
@@ -29,7 +29,8 @@
 import SearchHistory from "@/components/content/navbar/childComps/SearchHistory";
 import HotSearch from "@/components/content/navbar/childComps/HotSearch";
 //热搜列表(详细)
-import {getSearchHot} from "@/network/musicurl";
+import {getSearchHot} from "network/musicurl";
+import {keySearchInfo,searchMultimatch} from "network/keySearch";
 
 export default {
   name: "NavBar",
@@ -61,12 +62,37 @@ export default {
       this.$refs.searchIpt.value=value;
     },
     searchClic(){
+      const searchIpt=this.$refs.searchIpt.value;
       console.log('搜索ing......');
+      Promise.all([this.getSearchResult(searchIpt),this.getMultimatchResult(searchIpt)]).then(res => {
+        const serachInfo = encodeURIComponent(JSON.stringify(res));
+        return serachInfo;
+      }).then(res => {
+        this.$router.replace({
+          path:'/searchpage',
+          query:{
+            info:res
+          }
+        })
+      })
       console.log('进入搜索结果展示页面......');
       //把搜索词存入vuex
-      const searchIpt=this.$refs.searchIpt;
-      this.$store.commit('addSearchRecords',searchIpt.value);
+
+      this.$store.commit('addSearchRecords',searchIpt);
       console.log('提交成功');
+    },
+    //搜索的多重匹配
+    getMultimatchResult(value){
+      return  searchMultimatch(value).then(res => {
+        return res.result;
+      })
+    },
+
+    //搜索关键词
+    getSearchResult(value){
+      return  keySearchInfo(value).then(res => {
+        return res.result;
+      })
     },
     listShow(){
       this.isShow=true;

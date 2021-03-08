@@ -1,5 +1,5 @@
 <template>
-  <div class="ctrolbar">
+  <div class="ctrolbar" >
     <div class="ctrl-left">
       <div style="position: relative">
         <img :src="nowMusicInfo.imgUrl" alt="" @click="musicDetail">
@@ -74,7 +74,8 @@ export default {
         newInfoShow.ar[0].name,
         newInfoShow.dt);
         getMusicUrl(newInfoShow.id).then(res => {
-        this.$store.commit('updateAudioInfo', new AudioInfo(res.data[0], musicInfo, '新歌速递'));
+          console.log(res);
+          this.$store.commit('updateAudioInfo', new AudioInfo(res.data[0], musicInfo, '新歌速递'));
       })
     })
   },

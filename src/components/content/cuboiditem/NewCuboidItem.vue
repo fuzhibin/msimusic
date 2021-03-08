@@ -2,9 +2,11 @@
   <div class="new-cuboid-item" v-if="newInfoShow">
     <span class="cuboid-num">{{ setRankNum }}</span>
     <div class="front-cover">
-      <div class="front-icon" v-if="!isShow"><span
-        @click="transmitMusic(newInfoShow.id)">&#xe852;</span><span>&#xe69a;</span></div>
-      <img v-lazy="musicInfo.picUrl" alt="" v-if="isShow" @click="transmitMusic(newInfoShow.id)">
+      <div class="front-icon" v-if="!isFlag">
+        <span @click="transmitMusic(newInfoShow.id)">&#xe852;</span>
+        <span>&#xe69a;</span>
+      </div>
+      <img v-lazy="musicInfo.picUrl" alt="" v-if="isFlag" @click="transmitMusic(newInfoShow.id)">
     </div>
     <span class="new-cuboid-name" >
       {{ musicInfo.name }}
@@ -43,6 +45,10 @@ export default {
     isShow: {
       type: Boolean,
       default: true
+    },
+    isFlag:{
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -60,8 +66,12 @@ export default {
       // 展示里边的数据在同一个地方，
       // 但属性名不同时的处理
       if (this.isShow) {
+         const album=this.newInfoShow.album;
+        console.log(album.picUrl);
+        const picurl = album.picUrl===undefined ? album.artist.img1v1Url : album.picUrl;
+        console.log(picurl);
         this.musicInfo = new MusicInfo(
-          this.newInfoShow.album.picUrl,
+            picurl,
           this.newInfoShow.name,
           this.newInfoShow.alias[0],
           this.newInfoShow.artists[0].name,

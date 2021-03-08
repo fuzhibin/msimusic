@@ -29,10 +29,9 @@ export default {
     }
   },
   methods:{
-
     videoItemClic(){
       const videoInfo= encodeURIComponent(JSON.stringify(this.itemInfo));
-      this.$router.replace({
+      this.$router.push({
         path:'/videodetail',
         query:{
           videoInfo
@@ -42,12 +41,13 @@ export default {
   },
   data(){
     return {
-      itemInfo:{}
+      itemInfo:{},
     }
   },
   created() {
     getMvUrl(this.videoItem.id).then(res => {
       this.itemInfo=res.data;
+      console.log(res);
     })
   }
 
